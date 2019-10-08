@@ -96,8 +96,8 @@
           
             </form>
 
-            <div class="col-md-2 col-md-offset-4">
-              <a href="login.php">Iniciar sesion</a>
+            <div class="col-md-2 col-md-offset-4" style="margin-left:900px; margin-top: -380px; ">
+            <center>  <a href="login.php">Iniciar sesion</a></center>
             </div>
           </fieldset>
           
