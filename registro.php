@@ -1,3 +1,89 @@
+	<?php 
+
+						include_once("02_libreria.php");
+						 $objConexion = new Conexion();
+				         $idconexion  = $objConexion->conectar();
+
+						
+
+					    	 if(isset($_REQUEST["btnEnviar"])){
+					       
+					    	$nombreVete = htmlspecialchars($_REQUEST["NombreVeter"]);
+					    	$DireccionVete    = htmlspecialchars($_REQUEST["DireccionVete"]);
+					    	$TelefonoVete      = htmlspecialchars($_REQUEST["TelefonoVete"]);
+					    	$CorreoVete     = htmlspecialchars($_REQUEST["CorreoVete"]);
+					    	$ContrasenaVete     = htmlspecialchars($_REQUEST["ContrasenaVete"]);
+					    	$passwordEncryt = password_hash($ContrasenaVete, PASSWORD_BCRYPT);
+					
+					    	
+					    			try{
+					    			$objCrud = new Crud();
+					    				$objCrud->tablas = "usuario";
+					    				$objCrud->campos = "Correo,Contrasena";
+					    				$objCrud->valores = "'$CorreoVete','$passwordEncryt'";
+					    				$objCrud->create($idconexion);
+					    				
+
+					    			}catch(Exception $e){
+					    				echo "<script>
+					    				alert('Error en el registro '.$e);
+					    				windows.location='FormPacRegis.php'
+					    				</script>";
+
+					    			}
+
+					    			try{
+
+
+					    	$objCrud = new Crud();
+
+					    				$id = $objCrud->validarUsuario("usuario","id_usuario","");
+					    				$objCrud->tablas = "veterinarias";
+					    				$objCrud->campos = " Nombre, Telefono, Direccion,id_usuario";
+					    				$objCrud->valores = "'$nombreVete','$TelefonoVete','$DireccionVete',$id";
+					    				$objCrud->create($idconexion);
+					    				echo "<script>
+					    				alert('Su registro se completo exitosamente');
+					    				windows.location='FormPacRegis.php'
+					    				</script>";
+					    				
+					    				header("refresh:0;url=login.php");
+
+
+					    			}catch(Exception $e){
+					    				echo "<script>
+					    				alert('Error en el registro '.$e);
+					    				windows.location='FormPacRegis.php'
+					    				</script>";
+
+					    			}
+
+					    
+
+
+					    	
+					 
+					    	
+					    				
+					    			
+					    		
+					    	
+
+					    }
+					    $idconexion = $objConexion->desconectar($idconexion);
+
+
+
+
+
+						?>
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
 <head>
@@ -37,7 +123,7 @@
                       </div>
                   
                       <div class="col-md-6">
-                       <input type="text" class="form-control" name="" required="required">
+                       <input type="text" class="form-control" name="NombreVeter" required="required">
                       </div>
                 </div>
 
@@ -47,7 +133,7 @@
                       </div>
                   
                       <div class="col-md-6">
-                       <input type="text" class="form-control" name="" required="required">
+                       <input type="text" class="form-control" name="DireccionVete" required="required">
                       </div>
                   </div>
 
@@ -57,7 +143,7 @@
                       </div>
                   
                       <div class="col-md-6">
-                       <input type="text" class="form-control" name="" required="required">
+                       <input type="number" class="form-control" name="TelefonoVete" required="required">
                       </div>
                   </div>
 
@@ -67,7 +153,7 @@
                       </div>
                   
                       <div class="col-md-6">
-                       <input type="text" class="form-control" name="" required="required">
+                       <input type="text" class="form-control" name="CorreoVete" required="required">
                       </div>
                   </div>
 
@@ -77,7 +163,7 @@
                       </div>
                   
                       <div class="col-md-6">
-                        <input type="password" class="form-control" name="" required="required">
+                        <input type="password" class="form-control" name="ContrasenaVete" required="required">
                       </div>
                   </div>
 
@@ -86,7 +172,7 @@
                   
 
                   <div class="col-md-2 col-md-offset-4">
-                    <button type="submit" class="btn btn-primary" name=""><h4>Registrar</h4></button>
+                    <button type="submit" class="btn btn-primary" name="btnEnviar"><h4>Registrar</h4></button>
                   </div>
 
                    
