@@ -61,6 +61,9 @@
                   <div class="col-md-2 col-md-offset-4">
                     <button type="submit" class="btn btn-primary" name="btnAdicionar"><h4>Iniciar</h4></button>
                   </div>
+                  <div class="col-md-5 col-md-offset-4" style="margin-left: 80%; margin-top:-31%;">
+                    <a href="registro.php">Registro como veterinaria</a>
+                  </div>
 
    
               </div>
